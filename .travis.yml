@@ -1,9 +1,11 @@
 sudo: required
 
+language: docker
+
 services:
   - docker
 
-before_install:
+install:
   - travis_retry sudo apt-get update
   - travis_retry sudo apt-get install -y --no-install-recommends qemu-user-static binfmt-support
   - sudo update-binfmts --display qemu-arm
@@ -14,5 +16,5 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push skastenholz/rpi-hmland;
+    docker push $TRAVIS_REPO_SLUG;
     fi
