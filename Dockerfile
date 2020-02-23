@@ -7,6 +7,8 @@ RUN cd hmcfgusb-* && make
 
 FROM balenalib/armv7hf-debian:sid-run
 
+RUN install_packages libusb-1.0-0
+
 COPY --from=build hmcfgusb-0.103/hmland /usr/local/bin/hmland
 
 EXPOSE 1000
